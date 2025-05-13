@@ -1,39 +1,44 @@
 # This is a simple calculator application using Tkinter in Python.
 # It allows users to perform basic arithmetic operations such as addition, subtraction, multiplication, and division.
 
-import tkinter as tk
+import tkinter as tk  # Import the Tkinter library for GUI development
 
-
+# Initialize an empty string to store the current calculation
 calculation = ""
 
+# Function to add a symbol (number or operator) to the current calculation
 def add_to_calculation(symbol):
     global calculation
-    calculation += str(symbol)
-    text_result.delete(1.0, "end")
-    text_result.insert(1.0, calculation)
+    calculation += str(symbol)  # Append the symbol to the calculation string
+    text_result.delete(1.0, "end")  # Clear the display
+    text_result.insert(1.0, calculation)  # Update display with the new calculation
 
+# Function to evaluate the current calculation
 def evaluate_calculation():
     global calculation
     try:
-        calculation = str(eval(calculation))
-        text_result.delete(1.0, "end")
-        text_result.insert(1.0, calculation)
+        calculation = str(eval(calculation))  # Evaluate the expression and convert the result to string
+        text_result.delete(1.0, "end")  # Clear the display
+        text_result.insert(1.0, calculation)  # Display the result
     except:
-        clear_field()
-        text_result.insert(1.0, "Error")
+        clear_field()  # Clear everything on error
+        text_result.insert(1.0, "Error")  # Display error message
 
+# Function to clear the input field and reset the calculation
 def clear_field():
     global calculation
-    calculation = ""
-    text_result.delete(1.0, "end")
+    calculation = ""  # Reset calculation
+    text_result.delete(1.0, "end")  # Clear the display
 
-
+# Create the main application window
 root = tk.Tk()
-root.geometry("300x275")
+root.geometry("300x275")  # Set the size of the window
 
+# Create a text widget to display the current calculation or result
 text_result = tk.Text(root, height=2, width=16, font=("Arial", 24))
-text_result.grid(columnspan=5)
+text_result.grid(columnspan=5)  # Span the text display across 5 columns
 
+# Create numeric buttons (0-9)
 btn_1 = tk.Button(root, text="1", command=lambda: add_to_calculation(1), width=5, font=("Arial, 14"))
 btn_1.grid(row=2, column=1)
 btn_2 = tk.Button(root, text="2", command=lambda: add_to_calculation(2), width=5, font=("Arial, 14"))
@@ -54,6 +59,8 @@ btn_9 = tk.Button(root, text="9", command=lambda: add_to_calculation(9), width=5
 btn_9.grid(row=4, column=3)
 btn_0 = tk.Button(root, text="0", command=lambda: add_to_calculation(0), width=5, font=("Arial, 14"))
 btn_0.grid(row=5, column=2)
+
+# Create operator buttons
 btn_plus = tk.Button(root, text="+", command=lambda: add_to_calculation("+"), width=5, font=("Arial, 14"))
 btn_plus.grid(row=2, column=4)
 btn_minus = tk.Button(root, text="-", command=lambda: add_to_calculation("-"), width=5, font=("Arial, 14"))
@@ -62,14 +69,20 @@ btn_mul = tk.Button(root, text="*", command=lambda: add_to_calculation("*"), wid
 btn_mul.grid(row=4, column=4)
 btn_div = tk.Button(root, text="/", command=lambda: add_to_calculation("/"), width=5, font=("Arial, 14"))
 btn_div.grid(row=5, column=4)
+
+# Create parenthesis buttons
 btn_open = tk.Button(root, text="(", command=lambda: add_to_calculation("("), width=5, font=("Arial, 14"))
 btn_open.grid(row=5, column=1)
 btn_close = tk.Button(root, text=")", command=lambda: add_to_calculation(")"), width=5, font=("Arial, 14"))
 btn_close.grid(row=5, column=3)
+
+# Create clear button to reset input
 btn_clear = tk.Button(root, text="C", command=clear_field, width=11, font=("Arial, 14"))
 btn_clear.grid(row=6, column=1, columnspan=2)
+
+# Create equals button to evaluate expression
 btn_equals = tk.Button(root, text="=", command=evaluate_calculation, width=11, font=("Arial, 14"))
 btn_equals.grid(row=6, column=3, columnspan=2)
 
-
+# Start the Tkinter event loop
 root.mainloop()
